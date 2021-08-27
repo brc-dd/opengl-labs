@@ -1,0 +1,9 @@
+AllowShortBlocksOnASingleLine: 'true'
+AllowShortCaseLabelsOnASingleLine: 'true'
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: 'true'
+AllowShortLoopsOnASingleLine: 'true'
+ColumnLimit: 100
+IndentWidth: '4'
+ReflowComments: 'false'
+SortIncludes: 'true'
