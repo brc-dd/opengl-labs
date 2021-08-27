@@ -3,7 +3,7 @@ AllowShortCaseLabelsOnASingleLine: 'true'
 AllowShortFunctionsOnASingleLine: All
 AllowShortIfStatementsOnASingleLine: 'true'
 AllowShortLoopsOnASingleLine: 'true'
-ColumnLimit: 100
+ColumnLimit: 80
 IndentWidth: '4'
 ReflowComments: 'false'
 SortIncludes: 'true'
