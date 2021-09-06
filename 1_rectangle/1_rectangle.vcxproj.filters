@@ -30,6 +30,9 @@
     <ClInclude Include="..\include\utilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\whereami.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\glad.c">
@@ -47,10 +50,15 @@
     <ClCompile Include="..\src\utilities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\whereami.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="..\shaders\1_rectangle.frag" />
-    <None Include="..\shaders\1_rectangle.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\shaders\1_rectangle.frag" />
+    <CopyFileToFolders Include="..\shaders\1_rectangle.vert" />
   </ItemGroup>
 </Project>

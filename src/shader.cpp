@@ -20,8 +20,8 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath, const char *geo
     try {
 
         // open files
-        vShaderFile.open(vertexPath);
-        fShaderFile.open(fragmentPath);
+        vShaderFile.open(getDirectory() / vertexPath);
+        fShaderFile.open(getDirectory() / fragmentPath);
         std::stringstream vShaderStream, fShaderStream;
 
         // read file's buffer contents into streams
@@ -38,7 +38,7 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath, const char *geo
 
         // if geometry shader path is present, also load a geometry shader
         if (geometryPath != nullptr) {
-            gShaderFile.open(geometryPath);
+            gShaderFile.open(getDirectory() / geometryPath);
             std::stringstream gShaderStream;
             gShaderStream << gShaderFile.rdbuf();
             gShaderFile.close();
@@ -49,8 +49,8 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath, const char *geo
         std::cerr << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
     }
 
-    const char *vShaderCode = vertexCode.c_str();
-    const char *fShaderCode = fragmentCode.c_str();
+    auto *vShaderCode = vertexCode.c_str();
+    auto *fShaderCode = fragmentCode.c_str();
 
     // 2. compile shaders
     unsigned int vertex, fragment;

@@ -13,3 +13,22 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
 }
+
+std::filesystem::path getDirectory() {
+
+    std::filesystem::path dir = ".";
+    int length = wai_getExecutablePath(nullptr, 0, nullptr), dirname_length;
+
+    if (length > 0) {
+        auto path = new char[length + 1];
+        if (!path) abort();
+
+        wai_getExecutablePath(path, length, &dirname_length);
+        path[dirname_length] = '\0';
+
+        dir = path;
+        delete path;
+    }
+
+    return dir;
+}
