@@ -45,7 +45,7 @@ int main() {
 
     // glfw: create window
     // -------------------
-    auto window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Rectangle", nullptr, nullptr);
+    auto window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Circle", nullptr, nullptr);
 
     if (!window) {
         std::cerr << "Failed to create GLFW window" << std::endl;
