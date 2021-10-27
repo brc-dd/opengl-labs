@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{8D66F09F-471C-404B-8E91-5786969E4D71}</ProjectGuid>
-    <RootNamespace>My4circle</RootNamespace>
+    <ProjectGuid>{0047165B-5BEC-40B9-B17C-24269866D40B}</ProjectGuid>
+    <RootNamespace>My7scanLinePolygonFilling</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -154,7 +154,7 @@
     <ClInclude Include="..\include\whereami.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\4_circle.cpp" />
+    <ClCompile Include="..\src\7_scanLinePolygonFilling.cpp" />
     <ClCompile Include="..\src\glad.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>

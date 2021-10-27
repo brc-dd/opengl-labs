@@ -1,5 +1,34 @@
 #include "pch.h"
 
+constexpr unsigned MAX_PX = 1024;
+
+int le[MAX_PX], re[MAX_PX];
+
+void putPixel(int x, int y) {
+    GLint vp[4];
+    glGetIntegerv(GL_VIEWPORT, vp);
+
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(x + vp[2] / 2, y + vp[3] / 2, 1, 1);
+    glClearColor(0.00f, 0.57f, 0.92f, 1.00f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glDisable(GL_SCISSOR_TEST);
+}
+
+void edge(int x0, int y0, int x1, int y1) {
+    if (y1 < y0) {
+        std::swap(x0, x1);
+        std::swap(y0, y1);
+    }
+    int x = x0;
+    int m = (y1 - y0) / (x1 - x0);
+    for (int i = y0; i < y1; i++) {
+        if (x < le[i]) le[i] = x;
+        if (x > re[i]) re[i] = x;
+        x += (1 / m);
+    }
+}
+
 int main() {
     // settings
     // --------
@@ -16,7 +45,8 @@ int main() {
 
     // glfw: create window
     // -------------------
-    auto window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Rectangle", nullptr, nullptr);
+    auto window =
+        glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "ScanLine Polygon Filling", nullptr, nullptr);
 
     if (!window) {
         std::cerr << "Failed to create GLFW window" << std::endl;
@@ -41,10 +71,10 @@ int main() {
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     float vertices[] = {
-        0.5f,  0.5f,  0.0f, // top right
-        0.5f,  -0.5f, 0.0f, // bottom right
-        -0.5f, -0.5f, 0.0f, // bottom left
-        -0.5f, 0.5f,  0.0f  // top left
+        0.0f,  0.67f,  0.0f, // top
+        0.5f,  0.0f,   0.0f, // right
+        0.0f,  -0.67f, 0.0f, // bottom
+        -0.5f, 0.0f,   0.0f  // left
     };
 
     unsigned int indices[] = {
@@ -80,7 +110,7 @@ int main() {
 
     // render loop
     // -----------
-    while (!glfwWindowShouldClose(window)) {
+    for (glfwSetTime(0.00); !glfwWindowShouldClose(window);) {
 
         // input
         // -----
@@ -96,6 +126,22 @@ int main() {
         shader.use();
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+        for (int i = 0; i < MAX_PX; ++i) {
+            le[i] = MAX_PX;
+            re[i] = 0;
+        }
+
+        GLint vp[4];
+        glGetIntegerv(GL_VIEWPORT, vp);
+
+        edge(0.00f + vp[2], 0.67f * vp[3] / 2 + vp[2], 0.50f * vp[2] / 2 + vp[2], 0.00f + vp[2]);
+        edge(0.50f * vp[2] / 2 + vp[2], 0.00f + vp[2], 0.00f + vp[2], -0.67f * vp[3] / 2 + vp[2]);
+        edge(0.00f + vp[2], -0.67f * vp[3] / 2 + vp[2], -0.50f * vp[2] / 2 + vp[2], 0.00f + vp[2]);
+        edge(-0.50f * vp[2] / 2 + vp[2], 0.00f + vp[2], 0.00f + vp[2], 0.67f * vp[3] / 2 + vp[2]);
+
+        for (int i = 0; i < MAX_PX and i < glfwGetTime() * 100; ++i)
+            for (int j = le[i]; j < re[i]; ++j) putPixel(j - vp[2], i - vp[2]);
 
         // glfw: swap buffers and poll IO events
         // -------------------------------------

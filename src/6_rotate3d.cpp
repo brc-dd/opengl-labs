@@ -16,7 +16,7 @@ int main() {
 
     // glfw: create window
     // -------------------
-    auto window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Rectangle", nullptr, nullptr);
+    auto window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Rotate 2D", nullptr, nullptr);
 
     if (!window) {
         std::cerr << "Failed to create GLFW window" << std::endl;
@@ -36,7 +36,7 @@ int main() {
 
     // build and compile our shader program
     // ------------------------------------
-    Shader shader("1_rectangle.vert", "1_rectangle.frag");
+    Shader shader("6_rotate2d.vert", "6_rotate2d.frag");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -91,9 +91,19 @@ int main() {
         glClearColor(0.02f, 0.26f, 0.37f, 1.00f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // draw a triangle
-        // ---------------
+        // create transformations
+        // ----------------------
+        auto transform = glm::rotate(glm::mat4(1.0f), static_cast<float>(glfwGetTime()),
+                                     glm::vec3(0.0f, 0.0f, 1.0f));
+
+        // get matrix's uniform location and set matrix
+        // --------------------------------------------
         shader.use();
+        auto transformLoc = glGetUniformLocation(shader.ID, "transform");
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+
+        // draw shape
+        // ----------
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
