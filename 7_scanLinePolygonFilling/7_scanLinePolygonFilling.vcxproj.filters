@@ -57,4 +57,8 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\shaders\1_rectangle.frag" />
+    <CopyFileToFolders Include="..\shaders\1_rectangle.vert" />
+  </ItemGroup>
 </Project>

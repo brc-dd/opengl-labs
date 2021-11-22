@@ -56,7 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="..\shaders\6_rotate2d.frag" />
-    <None Include="..\shaders\6_rotate2d.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\shaders\6_rotate2d.frag" />
+    <CopyFileToFolders Include="..\shaders\6_rotate2d.vert" />
   </ItemGroup>
 </Project>
